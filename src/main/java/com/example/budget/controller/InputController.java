@@ -10,12 +10,19 @@ import javafx.stage.Stage;
 
 import java.time.LocalDate;
 
-public class inputController {
+/**
+ * Таблица ввода данных
+ * @author Liliacea
+ * @version 1.0
+ */
+public class InputController {
 
     public BalanceObject balanceObject = null;
 
 
-
+    /**
+     * Связь с графическим компонентом Java fx
+     */
     @FXML
     private AnchorPane inputAncorPane;
     @FXML
@@ -33,7 +40,12 @@ public class inputController {
     @FXML
    private RadioButton expenseRadioButton;
 
-
+    /**
+     * обработчик кнопки Сохранить
+     * создается новый объект balanceObject со значениями полей, установленными
+     * посредством таблицы ввода
+     * @param actionEvent
+     */
 
               public void saveButtonAction(ActionEvent actionEvent){
                 String name = nameTextField.getText();
@@ -57,8 +69,10 @@ public class inputController {
             }
 
 
-
-
+    /**
+     * Обработчик кнопки Очистить
+     * устанавливает стартовые значения в форме ввода
+     */
 
 
 
@@ -69,6 +83,9 @@ public class inputController {
         nameTextField.clear();
     }
 
+    /**
+     * визуализация формы ввода.
+     */
     public void fillInput () {
         Stage stage = ((Stage) inputAncorPane.getScene().getWindow());
         if (balanceObject == null) {
@@ -87,6 +104,10 @@ public class inputController {
         }
     }
 
+    /**
+     * Процедура получения доступа к объекту
+     * @return
+     */
     public BalanceObject getBalanceObject() {
         return balanceObject;
     }

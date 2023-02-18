@@ -2,6 +2,11 @@ package com.example.budget.model;
 
 import java.io.Serializable;
 
+/**
+ * Тип финансовой операции
+ * @author Liliacea
+ * @version 1.0
+ */
 public enum BalanceType implements Serializable {
 
     INCOME ("доход"),

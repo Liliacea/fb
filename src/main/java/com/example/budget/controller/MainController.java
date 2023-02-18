@@ -21,11 +21,15 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
-
+/**
+ * Форма отображения хранимых данных и расчета итоговой суммы
+ * @author Liliacea
+ * @version 1.0
+ */
 public class MainController {
     private ArrayList <BalanceObject> balanceObjectArrayList;
     private FXMLLoader fxmlLoader;
-    private inputController controller;
+    private InputController controller;
    // private ObservableList<BalanceObject> balanceObjectObservableList;
 
    private Stage stage = new Stage();
@@ -42,7 +46,10 @@ public class MainController {
 
     }
 
-
+    /**
+     * Связь с графическим компонентом
+     * java fx
+     */
     @FXML
     Button applyFilterButton;
     @FXML
@@ -78,10 +85,10 @@ public class MainController {
     Label resultLabel;
 
 
-
-
-
-
+    /**
+     * Инициализация формы
+     * Оботбражение данных при первом запуске программы
+     */
 
     @FXML
     private void initialize()  {
@@ -92,15 +99,7 @@ public class MainController {
         typeComboBox.getItems().addAll("любой","доход","расход");
         typeComboBox.getSelectionModel().select(0);
         DataBase.select();
-        /*try {
-            balanceObjectArrayList = FileService.readBalanceObjects(balanceObjectArrayList);
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-        }
 
-         */
         nameColumn.setCellValueFactory(new PropertyValueFactory<BalanceObject, String>("name"));
         dateColumn.setCellValueFactory(balanceObjectArrayList ->
             new SimpleStringProperty(balanceObjectArrayList.getValue().getDate().format(formatter)));
@@ -116,6 +115,11 @@ public class MainController {
 
     }
 
+    /**
+     * Обработчик кнопки редактировать с предупреждением о неверных действиях пользователя
+     * после сохранения данных в форме ввода, объект balanceObject передается на
+     * форму хранения данных по индексу
+     */
     @FXML
     private void editButtonAction() {
        if(tableView.getSelectionModel().isEmpty()){
@@ -134,26 +138,18 @@ public class MainController {
         int selectedIndex = tableView.getSelectionModel().getSelectedIndex();
         controller.setBalanceObject(balanceObjectArrayList.get(selectedIndex));
         stage.showAndWait();
-       /* if (controller.getBalanceObject() != null) {
-            balanceObjectArrayList.set(selectedIndex, controller.getBalanceObject());
 
-        */
             DataBase.update(controller.getBalanceObject());
-           /* try {
-                FileService.writeBalanceObjects(balanceObjectArrayList);
-            } catch (IOException e) {
-                e.printStackTrace();
-            } catch (ClassNotFoundException e) {
-                e.printStackTrace();
-            }
 
-            */
             fillTableView();
 
 
         }
 
-
+    /**
+     * обработчик кнопки удалить с предупреждением о неверных действиях пользователя
+     * удаление по индексу из базы данных и списка
+     */
     
     @FXML
     private void deleteButtonAction(){
@@ -186,7 +182,12 @@ public class MainController {
     }
 
 
-
+    /**
+     * обработчик кнопки Добавить.
+     * новый объект balanceObject со значениями полей, записанными в объект в форме ввода
+     * (кнопка Сохранить) передается в форму хранения данных и записывается в
+     * arrayList
+     * */
     @FXML
     private void addButtonAction() {
     controller = fxmlLoader.getController();
@@ -206,6 +207,10 @@ public class MainController {
 
 
     }
+
+    /**
+     * связь с визуальным компонентом
+     */
     @FXML
     private void fromCheckBoxAction() {
         fromDatePicker.setDisable(!fromCheckBox.isSelected());
@@ -218,21 +223,23 @@ public class MainController {
     }
     @FXML
     private void fromDatePickerAction(){
-       // calculate();
+
 
     }
     @FXML
     private void toDatePickerAction (){
 
-        //calculate();
+
     }
     @FXML
     private void typeComboBoxAction(){
 
-        //calculate();
+
     }
 
-
+    /**
+     * отрисовка визуального отображения формы хранения данных
+     */
     @FXML
     private void fillTableView(){
 
@@ -247,6 +254,15 @@ public class MainController {
         deleteButton.setDisable(balanceObjectArrayList.isEmpty());
 
     }
+
+    /**
+     * обработчик кнопки Применить
+     * не дает пользователю при использовании фильтров изменять, добавлять и удалять данные
+     * WARNING если эту возможность оставить, пользователь может затереть информацию.
+     * актуально для хранения данных через файл как это было раньше
+     *
+     *
+     */
     @FXML
     private void applyFilterButtonAction(){
         calculate();
@@ -258,6 +274,12 @@ public class MainController {
         resetButton.setDisable(false);
 
     }
+
+    /**
+     * обработчик кнопки сброса
+     * Если фильтр больше не нужен, ползователь снова по нажатию кнопки сброса
+     * может добавлять, редактировать и удалять данные
+     */
     @FXML
     private void resetButtonAction(){
 
@@ -274,6 +296,12 @@ public class MainController {
 
 
     }
+
+    /**
+     * Расчет итоговой суммы по установленным фильтрам
+     * тип финансовой операции и даты.
+     * 
+     */
     @FXML
     private void calculate() {
 
@@ -285,7 +313,6 @@ public class MainController {
 
 
 
-      //  DataBase.select();
 
         ArrayList<BalanceObject> filteredArrayList = new ArrayList<>();
 
