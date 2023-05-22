@@ -1,29 +1,98 @@
 package com.example.budget.model;
 
-import com.example.budget.model.BalanceType;
+import javax.persistence.*;
+import java.sql.Date;
 
-import java.io.Serializable;
-import java.time.LocalDate;
+/**
+ * Класс финансовой операции для таблицы дохода
+ *
+ * @author Liliacea
+ * @version 1.0
+ */
 
-public class BalanceObject implements Serializable {
-    private int id;
+@Entity
+@Table(name = "balanceObject")
+
+
+public class BalanceObject {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "id")
+    private Integer id;
+
+    @Column(name = "name")
     private String name;
-    private LocalDate date;
+
+    @Column(name = "date")
+    private Date date;
+
+    @Column(name = "amount")
     private double amount;
+
+
+    @Column(name = "type")
+
     private BalanceType type;
 
-    public BalanceObject(int id, String name, LocalDate date, double amount, BalanceType type) {
-       this.id = id;
-        this.name = name;
-        this.date = date;
-        this.amount = amount;
-        this.type = type;
+    public BalanceObject() {
+
     }
 
-    public int getId() {
+    public static class Builder {
+
+        private String name;
+
+
+        private Date date;
+        private double amount;
+
+        private BalanceType type;
+
+
+        public Builder() {
+
+
+        }
+
+        public Builder name(String val) {
+            name = val;
+            return this;
+        }
+
+        public Builder date(Date val) {
+            date = val;
+            return this;
+        }
+
+        public Builder amount(Double val) {
+            amount = val;
+            return this;
+        }
+
+        public Builder type(BalanceType val) {
+            type = val;
+            return this;
+        }
+
+        public BalanceObject build() {
+            return new BalanceObject(this);
+        }
+    }
+
+    private BalanceObject(Builder builder) {
+
+        name = builder.name;
+        date = builder.date;
+        amount = builder.amount;
+        type = builder.type;
+
+
+    }
+
+    public Integer getId() {
         return id;
     }
-
 
 
     public String getName() {
@@ -34,11 +103,11 @@ public class BalanceObject implements Serializable {
         this.name = name;
     }
 
-    public LocalDate getDate() {
-        return date;
+    public Date getDate() {
+        return this.date;
     }
 
-    public void setDate(LocalDate date) {
+    public void setDate(Date date) {
         this.date = date;
     }
 
@@ -57,4 +126,16 @@ public class BalanceObject implements Serializable {
     public void setType(BalanceType type) {
         this.type = type;
     }
+
+    @Override
+    public String toString() {
+        return "fbpostgre.BalanceObject{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", date=" + date +
+                ", amount=" + amount +
+                ", type=" + type +
+                '}';
+    }
+
 }
