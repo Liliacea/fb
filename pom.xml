@@ -158,11 +158,7 @@
             <artifactId>javafx-controls</artifactId>
             <version>17.0.2</version>
         </dependency>
-        <dependency>
-            <groupId>org.openjfx</groupId>
-            <artifactId>javafx-fxml</artifactId>
-            <version>17.0.2</version>
-        </dependency>
+
         <dependency>
             <groupId>org.openjfx</groupId>
             <artifactId>javafx-web</artifactId>
@@ -203,17 +199,13 @@
         <groupId>org.kordamp.bootstrapfx</groupId>
         <artifactId>bootstrapfx-core</artifactId>
         <version>0.4.0</version>
-    </dependency>    <dependency>
-        <groupId>eu.hansolo</groupId>
-        <artifactId>tilesfx</artifactId>
-        <version>17.1.15</version>
-        <exclusions>
-            <exclusion>
-                <groupId>org.openjfx</groupId>
-                <artifactId>*</artifactId>
-            </exclusion>
-        </exclusions>
-    </dependency>    <dependency>
+    </dependency>
+
+
+
+
+
+        <dependency>
         <groupId>com.github.almasb</groupId>
         <artifactId>fxgl</artifactId>
         <version>11.17</version>
@@ -231,11 +223,7 @@
             <artifactId>javafx-controls</artifactId>
             <version>17.0.2</version>
         </dependency>
-        <dependency>
-            <groupId>org.openjfx</groupId>
-            <artifactId>javafx-fxml</artifactId>
-            <version>17.0.2</version>
-        </dependency>
+
         <dependency>
             <groupId>org.openjfx</groupId>
             <artifactId>javafx-web</artifactId>
@@ -276,17 +264,7 @@
         <groupId>org.kordamp.bootstrapfx</groupId>
         <artifactId>bootstrapfx-core</artifactId>
         <version>0.4.0</version>
-    </dependency>    <dependency>
-        <groupId>eu.hansolo</groupId>
-        <artifactId>tilesfx</artifactId>
-        <version>17.1.15</version>
-        <exclusions>
-            <exclusion>
-                <groupId>org.openjfx</groupId>
-                <artifactId>*</artifactId>
-            </exclusion>
-        </exclusions>
-    </dependency>    <dependency>
+    </dependency>       <dependency>
         <groupId>com.github.almasb</groupId>
         <artifactId>fxgl</artifactId>
         <version>11.17</version>

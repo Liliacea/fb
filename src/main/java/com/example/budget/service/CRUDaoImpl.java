@@ -44,10 +44,7 @@ public class CRUDaoImpl implements CRUDao<BalanceObject, Integer> {
     @Override
     public BalanceObject update(BalanceObject balanceObject) {
         return tx(session -> {
-            balanceObject.setName(balanceObject.getName());
-            balanceObject.setDate(balanceObject.getDate());
-            balanceObject.setAmount(balanceObject.getAmount());
-            balanceObject.setType(balanceObject.getType());
+
             session.update(balanceObject);
             return balanceObject;
         });
@@ -69,7 +66,7 @@ public class CRUDaoImpl implements CRUDao<BalanceObject, Integer> {
     @Override
     public BalanceObject delete(BalanceObject balanceObject) {
         return tx(session -> {
-            //balanceObject.setId(balanceObject.getId());//
+
             session.delete(balanceObject);
             return balanceObject;
         });
