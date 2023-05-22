@@ -1,124 +1,141 @@
 package com.example.budget.model;
 
-import com.example.budget.model.BalanceType;
-
-import java.io.Serializable;
-import java.time.LocalDate;
+import javax.persistence.*;
+import java.sql.Date;
 
 /**
  * Класс финансовой операции для таблицы дохода
+ *
  * @author Liliacea
  * @version 1.0
  */
-public class BalanceObject implements Serializable {
-    /**
-     * поле id (для базы данных)
-     */
-    private int id;
-    /**
-     * Поле наименования финансовой операции
-     */
+
+@Entity
+@Table(name = "balanceObject")
+
+
+public class BalanceObject {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "id")
+    private Integer id;
+
+    @Column(name = "name")
     private String name;
-    /**
-     * поле даты
-     */
-    private LocalDate date;
-    /**
-     * поле суммы
-     */
+
+    @Column(name = "date")
+    private Date date;
+
+    @Column(name = "amount")
     private double amount;
-    /**
-     * Тип финансовой операции
-     * Enum BalanceType
-     */
+
+
+    @Column(name = "type")
+
     private BalanceType type;
 
-    /**
-     * Конструктор - создание нового объекта класса с определенными значениями
-     * @param id id
-     * @param name Наименование финансовой операции
-     * @param date Дата
-     * @param amount Сумма
-     * @param type Тип (Enum BalanceType)
-     */
-    public BalanceObject(int id, String name, LocalDate date, double amount, BalanceType type) {
-       this.id = id;
-        this.name = name;
-        this.date = date;
-        this.amount = amount;
-        this.type = type;
+    public BalanceObject() {
+
     }
 
-    /**
-     * процедура получения значения поля
-     * @return возвращает значение типа int, являющееся автоинкрементируемым id
-     */
-    public int getId() {
+    public static class Builder {
+
+        private String name;
+
+
+        private Date date;
+        private double amount;
+
+        private BalanceType type;
+
+
+        public Builder() {
+
+
+        }
+
+        public Builder name(String val) {
+            name = val;
+            return this;
+        }
+
+        public Builder date(Date val) {
+            date = val;
+            return this;
+        }
+
+        public Builder amount(Double val) {
+            amount = val;
+            return this;
+        }
+
+        public Builder type(BalanceType val) {
+            type = val;
+            return this;
+        }
+
+        public BalanceObject build() {
+            return new BalanceObject(this);
+        }
+    }
+
+    private BalanceObject(Builder builder) {
+
+        name = builder.name;
+        date = builder.date;
+        amount = builder.amount;
+        type = builder.type;
+
+
+    }
+
+    public Integer getId() {
         return id;
     }
 
-    /**
-     * процедура получения значения поля
-     * @return возвращает наименование финансовой операции
-     */
 
     public String getName() {
         return name;
     }
 
-    /**
-     * процедура установки значения поля
-     * @param name название финансовой операции
-     */
     public void setName(String name) {
         this.name = name;
     }
 
-    /**
-     * процедура получения доступа к значению поля
-     * @return возвращает дату события
-     */
-    public LocalDate getDate() {
-        return date;
+    public Date getDate() {
+        return this.date;
     }
 
-    /**
-     * процедура установки даты
-     * @param date Дата
-     */
-    public void setDate(LocalDate date) {
+    public void setDate(Date date) {
         this.date = date;
     }
 
-    /**
-     * процедура получения доступа к значению поля
-     * @return возвращает сумму
-     */
     public double getAmount() {
         return amount;
     }
 
-    /**
-     * процедура установки значения суммы
-     * @param amount сумма
-     */
     public void setAmount(double amount) {
         this.amount = amount;
     }
 
-    /**
-     * процедура получения доступа к значению поля
-     * @return возвращает тип (enum BalanceType)
-     */
     public BalanceType getType() {
         return type;
     }
 
-    /**
-     * процедура установки значения типа финансовой операции
-     * @param type Тип финансовой операции
-     */
     public void setType(BalanceType type) {
         this.type = type;
     }
+
+    @Override
+    public String toString() {
+        return "fbpostgre.BalanceObject{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", date=" + date +
+                ", amount=" + amount +
+                ", type=" + type +
+                '}';
+    }
+
 }

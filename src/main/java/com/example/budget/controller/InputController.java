@@ -8,10 +8,12 @@ import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
+import java.sql.Date;
 import java.time.LocalDate;
 
 /**
  * Таблица ввода данных
+ *
  * @author Liliacea
  * @version 1.0
  */
@@ -26,47 +28,53 @@ public class InputController {
     @FXML
     private AnchorPane inputAncorPane;
     @FXML
-   private Button saveButton;
+    private Button saveButton;
     @FXML
     private Button clearButton;
     @FXML
-   private DatePicker datePicker;
+    private DatePicker datePicker;
     @FXML
     private TextField nameTextField;
     @FXML
-   private TextField amountTextField;
+    private TextField amountTextField;
     @FXML
-   private RadioButton incomeRadioButton;
+    private RadioButton incomeRadioButton;
     @FXML
-   private RadioButton expenseRadioButton;
+    private RadioButton expenseRadioButton;
 
     /**
      * обработчик кнопки Сохранить
      * создается новый объект balanceObject со значениями полей, установленными
      * посредством таблицы ввода
+     *
      * @param actionEvent
      */
 
-              public void saveButtonAction(ActionEvent actionEvent){
-                String name = nameTextField.getText();
-                LocalDate date = datePicker.getValue();
-                BalanceType type = incomeRadioButton.isSelected()
-                        ? BalanceType.INCOME : BalanceType.EXPENSE;
-                double amount = Double.parseDouble(amountTextField.getText());
-                if (balanceObject == null) {
+    public void saveButtonAction(ActionEvent actionEvent) {
+        String name = nameTextField.getText();
+        LocalDate date = datePicker.getValue();
+        BalanceType type = incomeRadioButton.isSelected()
+                ? BalanceType.INCOME : BalanceType.EXPENSE;
+        double amount = Double.parseDouble(amountTextField.getText());
+        if (balanceObject == null) {
 
-                    balanceObject = new BalanceObject(0, name, date, amount, type);
-                } else {
+            balanceObject = new BalanceObject.Builder()
+                    .name(name)
+                    .date(Date.valueOf(date))
+                    .amount(amount)
+                    .type(type)
+                    .build();
+        } else {
 
-                    balanceObject.setName(name);
-                    balanceObject.setType(type);
-                    balanceObject.setDate(date);
-                    balanceObject.setAmount(amount);
-                }
-                ((Stage) inputAncorPane.getScene().getWindow()).close();
+            balanceObject.setName(name);
+            balanceObject.setType(type);
+            balanceObject.setDate(Date.valueOf(date));
+            balanceObject.setAmount(amount);
+        }
+        ((Stage) inputAncorPane.getScene().getWindow()).close();
 
 
-            }
+    }
 
 
     /**
@@ -75,8 +83,7 @@ public class InputController {
      */
 
 
-
-    public void clearButtonAction(){
+    public void clearButtonAction() {
         incomeRadioButton.setSelected(true);
         datePicker.setValue(LocalDate.now());
         amountTextField.setText("0");
@@ -86,7 +93,7 @@ public class InputController {
     /**
      * визуализация формы ввода.
      */
-    public void fillInput () {
+    public void fillInput() {
         Stage stage = ((Stage) inputAncorPane.getScene().getWindow());
         if (balanceObject == null) {
             stage.setTitle("ввод новых данных");
@@ -95,7 +102,7 @@ public class InputController {
         }
         stage.setTitle("редактирование данных");
         nameTextField.setText(balanceObject.getName());
-        datePicker.setValue(balanceObject.getDate());
+        datePicker.setValue(balanceObject.getDate().toLocalDate());
         amountTextField.setText(String.valueOf(balanceObject.getAmount()));
         switch (balanceObject.getType()) {
             case INCOME -> incomeRadioButton.setSelected(true);
@@ -106,6 +113,7 @@ public class InputController {
 
     /**
      * Процедура получения доступа к объекту
+     *
      * @return
      */
     public BalanceObject getBalanceObject() {
@@ -116,9 +124,6 @@ public class InputController {
         this.balanceObject = balanceObject;
         fillInput();
     }
-
-
-
 
 
 }
