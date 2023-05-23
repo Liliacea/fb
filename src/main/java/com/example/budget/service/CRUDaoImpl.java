@@ -17,7 +17,7 @@ public class CRUDaoImpl implements CRUDao<BalanceObject, Integer> {
         this.sessionFactory = factory;
     }
 
-    @Override
+
     public <T> T tx(Function<Session, T> command) {
         final Session session = sessionFactory.openSession();
         final Transaction tx = session.beginTransaction();
